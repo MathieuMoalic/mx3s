@@ -1,0 +1,7 @@
+{
+    "python.pythonPath": "/home/mat/.local/share/virtualenvs/mx3s-AJngHt2Q/bin/python",
+    "python.linting.flake8Enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.mypyEnabled": false,
+    "python.linting.enabled": true
+}
