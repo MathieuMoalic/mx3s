@@ -47,17 +47,28 @@
   {% comment %} {% include "./base.html" %} {% endcomment %}
   <body>
     {% block content %}
-    <div class="container">
-      <!-- Content here -->
-      {{ sim_obj.0.name }}
-    </div>
-    <div class="container">
-      <div class="row">
+    <table class="table table-dark">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Finished?</th>
+          <th scope="col">Gpu</th>
+          <th scope="col">Path</th>
+        </tr>
+      </thead>
+      <tbody>
         {% for sim in sim_obj %}
-        <div class="col-sm">{{ sim.name }}</div>
+        <tr>
+          <th scope="row">1</th>
+          <td>{{sim.name}}</td>
+          <td>{{sim.finished}}</td>
+          <td>{{sim.gpu}}</td>
+          <td>{{sim.path}}</td>
+        </tr>
         {% endfor %}
-      </div>
-    </div>
+      </tbody>
+    </table>
     {% endblock content%}
 
     <!-- Optional JavaScript -->

@@ -14,7 +14,7 @@ class SimulationAdmin(admin.ModelAdmin):
         "finished",
         "port",
         "path",
-        "current_gpu",
+        "gpu",
     )
 
 
