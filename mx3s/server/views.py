@@ -1,5 +1,5 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.utils import timezone
 from django.views import generic
@@ -12,8 +12,13 @@ class IndexView(generic.ListView):
     context_object_name = "sim_obj"
 
     def get_queryset(self):
-        """
-        Return the last five published questions (not including those set to be
-        published in the future).
-        """
-        return Simulation.objects.all()[:5]
+        return Simulation.objects.all()
+
+
+class SimulationCreateView(generic.CreateView):
+    model = Simulation
+    fields = ["path"]
+
+
+def redirect_view(request):
+    return redirect("http://127.0.0.1:35360/")
