@@ -9,17 +9,17 @@ class Server(models.Model):
 
 
 class Simulation(models.Model):
-    name = models.CharField(max_length=200)
     start_time = models.DateTimeField(
-        "time started", default=None, blank=True, null=True
+        "Time Started", default=None, blank=True, null=True
     )
     end_time = models.DateTimeField("time ended", default=None, blank=True, null=True)
-    duration = models.DurationField(blank=True, default=None, null=True)
-    queued = models.BooleanField()
-    running = models.BooleanField()
+    # duration = models.DurationField(blank=True, default=None, null=True)
+    queued = models.BooleanField(default=True)
+    running = models.BooleanField(default=False)
     finished = models.BooleanField(default=False)
     port = models.PositiveIntegerField(blank=True, null=True, default=None)
     path = models.FilePathField(path="/mnt/g/Mathieu/simulations/server")
+    name = models.CharField(max_length=200, default="simulation name")
 
     def __str__(self):
         return self.name
