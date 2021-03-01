@@ -8,7 +8,6 @@ class SimulationAdmin(admin.ModelAdmin):
         "name",
         "start_time",
         "end_time",
-        # "duration",
         "is_queued",
         "is_running",
         "is_finished",

@@ -4,5 +4,6 @@
     "python.linting.pylintEnabled": false,
     "python.linting.mypyEnabled": false,
     "python.linting.enabled": true,
-    "files.autoSave": "onFocusChange"
+    "files.autoSave": "onFocusChange",
+    "editor.formatOnSave": true
 }

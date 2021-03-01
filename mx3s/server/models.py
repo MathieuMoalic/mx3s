@@ -13,7 +13,6 @@ class Simulation(models.Model):
         "Time Started", default=None, blank=True, null=True
     )
     end_time = models.DateTimeField("time ended", default=None, blank=True, null=True)
-    # duration = models.DurationField(blank=True, default=None, null=True)
     is_queued = models.BooleanField(default=True)
     is_running = models.BooleanField(default=False)
     is_finished = models.BooleanField(default=False)
@@ -21,6 +20,8 @@ class Simulation(models.Model):
     port = models.PositiveIntegerField(blank=True, null=True, default=None)
     path = models.FilePathField(path="/mnt/g/Mathieu/simulations/server")
     name = models.CharField(max_length=200, default="simulation name")
+    script = models.FileField("/", null=True)
+    uploaded_at = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.name

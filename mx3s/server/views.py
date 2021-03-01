@@ -1,29 +1,19 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import get_object_or_404, render, redirect, HttpResponse
 from django.urls import reverse
 from django.utils import timezone
 from django.views import generic
+from django.contrib import messages
+import pdb
+
 
 from .models import Simulation
+from .forms import ScriptUploadForm
 
 
 class IndexView(generic.ListView):
     template_name = "server/index.html"
     context_object_name = "sims"
-    # model = Simulation  # same as  queryset = Simulation.objects.all()
-    # def get_queryset(self):
-    #     queued = Simulation.objects.all()
-    #     running = Simulation.objects.all()
-    #     finished = Simulation.objects.all()
-    #     return Simulation.objects.all()
-
-    # def get_queue(self):
-    #     return Simulation.objects.
-
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['now'] = timezone.now()
-    #     return context
 
     def get_queryset(self):
 
@@ -33,19 +23,21 @@ class IndexView(generic.ListView):
             "finished": Simulation.objects.filter(is_finished=True),
         }
 
+    def post(self, request):
+        form = ScriptUploadForm(request.POST, request.FILES)
 
-class Finished(generic.ListView):
-    template_name = "server/finshed.html"
-    context_object_name = "sims"
-
-    def get_queryset(self):
-        return Simulation.objects.filter(is_finished=True)
-
-
-class SimulationCreateView(generic.CreateView):
-    model = Simulation
-    fields = ["path"]
+        # pdb.set_trace()
+        if form.is_valid():
+            form.save()
+            messages.success(request, "success", extra_tags="alert")
+        else:
+            messages.error(
+                request, "This file couldn't be uploaded", extra_tags="alert"
+            )
+        return redirect(request.META["HTTP_REFERER"])
 
 
-def redirect_view(request):
-    return redirect("http://127.0.0.1:35360/")
+def redirect_sim(request, sim_id):
+    s = get_object_or_404(Simulation, pk=sim_id)
+    url = f"http://{s.ip}:{s.port}/"
+    return redirect(url)

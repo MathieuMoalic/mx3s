@@ -14,6 +14,7 @@
     <thead>
       <tr>
         <th scope="col">#</th>
+        <th scope="col"></th>
         <th scope="col">Name</th>
         <th scope="col">Path</th>
         <th scope="col">Time Started</th>
@@ -26,6 +27,15 @@
       <tr>
         <th scope="row">{{sim.pk}}</th>
         <td>{{sim.name}}</td>
+        <td>
+          <a
+            class="btn btn-outline-secondary btn-sm"
+            role="button"
+            href="{% url 'server:redirect-sim' sim.id %}"
+          >
+            View
+          </a>
+        </td>
         <td>{{sim.path}}</td>
         <td>{{sim.start_time}}</td>
         <td>0</td>
