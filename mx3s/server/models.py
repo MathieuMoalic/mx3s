@@ -1,11 +1,23 @@
 import datetime
-
+import os
 from django.db import models
 from django.utils import timezone
+from django.dispatch import receiver
+
+
+def rename_script(instance, filename):
+    # can do f"{user}/name.mx3 later !
+    name = filename.split("/")[-1]
+    path = f"{name}"
+    return path
 
 
 class Server(models.Model):
     ip = models.GenericIPAddressField(default="127.0.0.1")
+
+
+class User(models.Model):
+    pass
 
 
 class Simulation(models.Model):
@@ -20,7 +32,10 @@ class Simulation(models.Model):
     port = models.PositiveIntegerField(blank=True, null=True, default=None)
     path = models.FilePathField(path="/mnt/g/Mathieu/simulations/server")
     name = models.CharField(max_length=200, default="simulation name")
-    script = models.FileField("/", null=True)
+    script = models.FileField(
+        upload_to=rename_script,
+        null=True,
+    )
     uploaded_at = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
@@ -36,3 +51,14 @@ class Gpu(models.Model):
 
     def __str__(self):
         return self.name
+
+
+@receiver(models.signals.post_delete, sender=Simulation)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+    """
+    Deletes file from filesystem
+    when corresponding `Simulation` object is deleted.
+    """
+    if instance.script:
+        if os.path.isfile(instance.script.path):
+            os.remove(instance.script.path)

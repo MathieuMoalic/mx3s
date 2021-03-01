@@ -4,8 +4,8 @@ from django.urls import reverse
 from django.utils import timezone
 from django.views import generic
 from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 import pdb
-
 
 from .models import Simulation
 from .forms import ScriptUploadForm
@@ -26,8 +26,8 @@ class IndexView(generic.ListView):
     def post(self, request):
         form = ScriptUploadForm(request.POST, request.FILES)
 
-        # pdb.set_trace()
         if form.is_valid():
+            # pdb.set_trace()
             form.save()
             messages.success(request, "success", extra_tags="alert")
         else:
@@ -35,6 +35,20 @@ class IndexView(generic.ListView):
                 request, "This file couldn't be uploaded", extra_tags="alert"
             )
         return redirect(request.META["HTTP_REFERER"])
+
+
+class DeleteView(SuccessMessageMixin, generic.DeleteView):
+    model = Simulation
+    success_url = "/"
+    success_message = "deleted..."
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        name = self.object.name
+        request.session["name"] = name  # name will be change according to your need
+        message = request.session["name"] + " deleted successfully"
+        messages.success(self.request, message)
+        return super(DeleteView, self).delete(request, *args, **kwargs)
 
 
 def redirect_sim(request, sim_id):

@@ -9,11 +9,10 @@
 {% endfor %}
 
 <form method="post" enctype="multipart/form-data" action="{% url 'server:index' %}">
-    {% csrf_token %}{{ form.as_p }}
+    {% csrf_token %}
     <input type="file" name="script">
     <button type=" submit" class="btn btn-outline-primary">Upload mx3</button>
 </form>
-
 
 <div>{% include 'server/queued.html' %}</div>
 <div>{% include 'server/running.html' %}</div>

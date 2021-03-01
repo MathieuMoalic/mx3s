@@ -8,7 +8,7 @@ app_name = "server"
 urlpatterns = [
     path("", views.IndexView.as_view(), name="index"),
     path("<int:sim_id>/", views.redirect_sim, name="redirect-sim"),
-    # path("upload/", views.ScriptUploadView, name="upload"),
+    path("delete/<int:pk>", views.DeleteView.as_view(), name="delete-sim"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

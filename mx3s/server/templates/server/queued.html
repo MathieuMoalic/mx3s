@@ -1,12 +1,5 @@
-<button
-  type="button"
-  class="btn btn-dark btn-lg btn-block"
-  data-toggle="collapse"
-  href="#collapseQueued"
-  role="button"
-  aria-expanded="false"
-  aria-controls="collapseQueued"
->
+<button type="button" class="btn btn-dark btn-lg btn-block" data-toggle="collapse" href="#collapseQueued" role="button"
+  aria-expanded="false" aria-controls="collapseQueued">
   Queued
 </button>
 <div class="collapse show" id="collapseQueued">
@@ -15,6 +8,7 @@
       <tr>
         <th scope="col">#</th>
         <th scope="col">Name</th>
+        <th scope="col">Name2</th>
         <th scope="col">Remove</th>
         <th scope="col"></th>
       </tr>
@@ -24,8 +18,12 @@
       <tr>
         <th scope="row">{{sim.pk}}</th>
         <td>{{sim.name}}</td>
+        <td>{{sim.script}}</td>
         <td>
-          <button type="button" class="btn btn-outline-danger">Remove</button>
+          <form action="{% url 'server:delete-sim' pk=sim.pk %}" method="POST">
+            {% csrf_token %}
+            <input class="btn btn-default btn-danger" type="submit" value="Delete" />
+          </form>
         </td>
         <td>
           <button type="button" class="btn btn-outline-primary">
