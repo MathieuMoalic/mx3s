@@ -1,0 +1,39 @@
+<button
+  type="button"
+  class="btn btn-dark btn-lg btn-block"
+  data-toggle="collapse"
+  href="#collapseQueued"
+  role="button"
+  aria-expanded="false"
+  aria-controls="collapseQueued"
+>
+  Queued
+</button>
+<div class="collapse show" id="collapseQueued">
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Remove</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for sim in sims.queued %}
+      <tr>
+        <th scope="row">{{sim.pk}}</th>
+        <td>{{sim.name}}</td>
+        <td>
+          <button type="button" class="btn btn-outline-danger">Remove</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-outline-primary">
+            Top Priority
+          </button>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

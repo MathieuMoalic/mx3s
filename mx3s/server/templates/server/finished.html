@@ -1,0 +1,37 @@
+<button
+  type="button"
+  class="btn btn-dark btn-lg btn-block show"
+  data-toggle="collapse"
+  href="#collapseFinished"
+  role="button"
+  aria-expanded="false"
+  aria-controls="collapseFinished"
+>
+  Finished
+</button>
+<div class="collapse show" id="collapseFinished">
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Path</th>
+        <th scope="col">Duration</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for sim in sims.finished %}
+      <tr>
+        <th scope="row">{{sim.pk}}</th>
+        <td>{{sim.name}}</td>
+        <td>{{sim.path}}</td>
+        <td>0</td>
+        <td>
+          <button type="button" class="btn btn-outline-danger">Delete</button>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

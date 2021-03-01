@@ -1,38 +1,7 @@
 {% extends "server/base.html" %} {% block content %}
 
-<button
-  type="button"
-  class="btn btn-dark btn-lg btn-block"
-  data-toggle="collapse"
-  href="#collapseQueue"
-  role="button"
-  aria-expanded="false"
-  aria-controls="collapseQueue"
->
-  Queued
-</button>
-<div class="collapse" id="collapseQueue">
-  <table class="table table-dark">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Name</th>
-        <th scope="col">Finished?</th>
-        <th scope="col">Gpu</th>
-        <th scope="col">Path</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for sim in sim_obj %}
-      <tr>
-        <th scope="row">1</th>
-        <td>{{sim.name}}</td>
-        <td>{{sim.finished}}</td>
-        <td>{{sim.gpu}}</td>
-        <td>{{sim.path}}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
+<div>{% include 'server/queued.html' %}</div>
+<div>{% include 'server/running.html' %}</div>
+<div>{% include 'server/finished.html' %}</div>
+
 {% endblock content%}

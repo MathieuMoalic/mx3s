@@ -1,0 +1,39 @@
+<button
+  type="button"
+  class="btn btn-dark btn-lg btn-block show"
+  data-toggle="collapse"
+  href="#collapseRunning"
+  role="button"
+  aria-expanded="false"
+  aria-controls="collapseRunning"
+>
+  Running
+</button>
+<div class="collapse show" id="collapseRunning">
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Path</th>
+        <th scope="col">Time Started</th>
+        <th scope="col">Duration</th>
+        <th scope="col">Remove</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for sim in sims.running %}
+      <tr>
+        <th scope="row">{{sim.pk}}</th>
+        <td>{{sim.name}}</td>
+        <td>{{sim.path}}</td>
+        <td>{{sim.start_time}}</td>
+        <td>0</td>
+        <td>
+          <button type="button" class="btn btn-outline-danger">Remove</button>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
