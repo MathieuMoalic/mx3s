@@ -1,6 +1,4 @@
-from glob import glob
 from ftpretty import ftpretty
-import os
 import env_var
 
 f = ftpretty(

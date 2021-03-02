@@ -2,14 +2,22 @@
 # to enable run `pip install pre-commit && pre-commit install`
 
 repos:
-  - repo: local
-    hooks:
-      - id: mx3s
-        name: mx3s
-        language: python
-        entry: mx3s
-        args: [-i, -vv]
-        types: [python]
+  # - repo: https://github.com/pre-commit/mirrors-yapf
+  #   hooks:
+  #     - id: yapf
+  # - repo: local
+  #   hooks:
+  #     - id: pylint
+  #       name: pylint
+  #       entry: pylint
+  #       language: system
+  #       types: [python]
+  # - repo: https://github.com/pycqa/pylint
+  #   rev: pylint-2.6.0
+  #   hooks:
+  #     - id: pylint
+  #       args:
+  #         - --rcfile=.pylintrc
   # - repo: https://github.com/pre-commit/pre-commit-hooks
   #   rev: v3.4.0
   #   hooks:

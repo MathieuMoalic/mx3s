@@ -1,5 +1,12 @@
-<button type="button" class="btn btn-dark btn-lg btn-block" data-toggle="collapse" href="#collapseQueued" role="button"
-  aria-expanded="false" aria-controls="collapseQueued">
+<button
+  type="button"
+  class="btn btn-dark btn-lg btn-block"
+  data-toggle="collapse"
+  href="#collapseQueued"
+  role="button"
+  aria-expanded="false"
+  aria-controls="collapseQueued"
+>
   Queued
 </button>
 <div class="collapse show" id="collapseQueued">
@@ -10,8 +17,8 @@
         <th scope="col">Name</th>
         <th scope="col">Filename</th>
         <th scope="col">User</th>
-        <th scope="col" style="width:  10%">Priority</th>
-        <th scope="col" style="width:  5%"></th>
+        <th scope="col" style="width: 10%">Priority</th>
+        <th scope="col" style="width: 5%"></th>
       </tr>
     </thead>
     <tbody>
@@ -29,7 +36,11 @@
         <td>
           <form action="{% url 'server:delete-sim' pk=sim.pk %}" method="POST">
             {% csrf_token %}
-            <input class="btn btn-default btn-danger btn-sm" type="submit" value="Delete" />
+            <input
+              class="btn btn-default btn-danger btn-sm"
+              type="submit"
+              value="Delete"
+            />
           </form>
         </td>
       </tr>

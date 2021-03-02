@@ -5,14 +5,14 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('server', '0010_document'),
-    ]
+    dependencies = [('server', '0010_document')]
 
     operations = [
         migrations.AlterField(
             model_name='simulation',
             name='script',
-            field=models.FileField(null=True, upload_to='', verbose_name='/tmp'),
-        ),
+            field=models.FileField(null=True,
+                                   upload_to='',
+                                   verbose_name='/tmp'),
+        )
     ]

@@ -2,7 +2,7 @@
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
-PIPENV_VENV_IN_PROJECT=1
+PIPENV_VENV_IN_PROJECT = 1
 
 [packages]
 django = "*"

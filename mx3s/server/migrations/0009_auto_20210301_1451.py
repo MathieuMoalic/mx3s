@@ -5,14 +5,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('server', '0008_simulation_script'),
-    ]
+    dependencies = [('server', '0008_simulation_script')]
 
     operations = [
         migrations.AlterField(
             model_name='simulation',
             name='script',
             field=models.FileField(null=True, upload_to='', verbose_name=''),
-        ),
+        )
     ]

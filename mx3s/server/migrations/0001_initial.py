@@ -8,35 +8,64 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
             name='Gpu',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-            ],
+            fields=[(
+                'id',
+                models.AutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID',
+                ),
+            )],
         ),
         migrations.CreateModel(
             name='Simulation',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
                 ('name', models.CharField(max_length=200)),
-                ('start_time', models.DateTimeField(verbose_name='time started')),
+                ('start_time',
+                 models.DateTimeField(verbose_name='time started')),
                 ('end_time', models.DateTimeField(verbose_name='time ended')),
                 ('duration', models.DurationField()),
                 ('queued', models.BooleanField()),
                 ('running', models.BooleanField()),
                 ('finished', models.BooleanField(default=False)),
                 ('port', models.PositiveIntegerField()),
-                ('path', models.FilePathField(path='/mnt/g/Mathieu/simulations/server')),
-                ('current_gpu', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='server.gpu')),
+                (
+                    'path',
+                    models.FilePathField(
+                        path='/mnt/g/Mathieu/simulations/server'),
+                ),
+                (
+                    'current_gpu',
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to='server.gpu',
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
             model_name='gpu',
             name='current_simulation',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='server.simulation'),
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to='server.simulation',
+            ),
         ),
     ]

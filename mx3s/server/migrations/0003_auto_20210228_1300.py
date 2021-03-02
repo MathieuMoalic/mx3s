@@ -6,19 +6,27 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('server', '0002_auto_20210227_1913'),
-    ]
+    dependencies = [('server', '0002_auto_20210227_1913')]
 
     operations = [
         migrations.AlterField(
             model_name='gpu',
             name='current_simulation',
-            field=models.ForeignKey(default=django.db.models.deletion.SET_NULL, null=True, on_delete=django.db.models.deletion.SET_NULL, to='server.simulation'),
+            field=models.ForeignKey(
+                default=django.db.models.deletion.SET_NULL,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to='server.simulation',
+            ),
         ),
         migrations.AlterField(
             model_name='simulation',
             name='current_gpu',
-            field=models.ForeignKey(default=django.db.models.deletion.SET_NULL, null=True, on_delete=django.db.models.deletion.SET_NULL, to='server.gpu'),
+            field=models.ForeignKey(
+                default=django.db.models.deletion.SET_NULL,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to='server.gpu',
+            ),
         ),
     ]

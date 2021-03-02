@@ -6,18 +6,19 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('server', '0005_auto_20210228_1313'),
-    ]
+    dependencies = [('server', '0005_auto_20210228_1313')]
 
     operations = [
-        migrations.RemoveField(
-            model_name='simulation',
-            name='current_gpu',
-        ),
+        migrations.RemoveField(model_name='simulation', name='current_gpu'),
         migrations.AlterField(
             model_name='gpu',
             name='current_simulation',
-            field=models.OneToOneField(blank=True, default=None, null=True, on_delete=django.db.models.deletion.SET_NULL, to='server.simulation'),
+            field=models.OneToOneField(
+                blank=True,
+                default=None,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to='server.simulation',
+            ),
         ),
     ]

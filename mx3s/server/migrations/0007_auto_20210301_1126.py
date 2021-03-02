@@ -5,28 +5,15 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('server', '0006_auto_20210228_1520'),
-    ]
+    dependencies = [('server', '0006_auto_20210228_1520')]
 
     operations = [
-        migrations.RenameField(
-            model_name='simulation',
-            old_name='finished',
-            new_name='is_finished',
-        ),
-        migrations.RemoveField(
-            model_name='simulation',
-            name='duration',
-        ),
-        migrations.RemoveField(
-            model_name='simulation',
-            name='queued',
-        ),
-        migrations.RemoveField(
-            model_name='simulation',
-            name='running',
-        ),
+        migrations.RenameField(model_name='simulation',
+                               old_name='finished',
+                               new_name='is_finished'),
+        migrations.RemoveField(model_name='simulation', name='duration'),
+        migrations.RemoveField(model_name='simulation', name='queued'),
+        migrations.RemoveField(model_name='simulation', name='running'),
         migrations.AddField(
             model_name='simulation',
             name='ip',
@@ -50,6 +37,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='simulation',
             name='start_time',
-            field=models.DateTimeField(blank=True, default=None, null=True, verbose_name='Time Started'),
+            field=models.DateTimeField(blank=True,
+                                       default=None,
+                                       null=True,
+                                       verbose_name='Time Started'),
         ),
     ]

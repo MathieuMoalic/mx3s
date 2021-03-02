@@ -6,18 +6,15 @@ import django.utils.timezone
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('server', '0011_auto_20210301_1635'),
-    ]
+    dependencies = [('server', '0011_auto_20210301_1635')]
 
     operations = [
-        migrations.DeleteModel(
-            name='Document',
-        ),
+        migrations.DeleteModel(name='Document'),
         migrations.AddField(
             model_name='simulation',
             name='uploaded_at',
-            field=models.DateTimeField(auto_now_add=True, default=django.utils.timezone.now),
+            field=models.DateTimeField(auto_now_add=True,
+                                       default=django.utils.timezone.now),
             preserve_default=False,
         ),
         migrations.AlterField(

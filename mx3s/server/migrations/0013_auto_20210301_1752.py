@@ -5,14 +5,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('server', '0012_auto_20210301_1749'),
-    ]
+    dependencies = [('server', '0012_auto_20210301_1749')]
 
     operations = [
         migrations.AlterField(
             model_name='simulation',
             name='uploaded_at',
             field=models.DateTimeField(auto_now_add=True, null=True),
-        ),
+        )
     ]

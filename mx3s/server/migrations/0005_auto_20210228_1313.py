@@ -5,9 +5,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('server', '0004_auto_20210228_1311'),
-    ]
+    dependencies = [('server', '0004_auto_20210228_1311')]
 
     operations = [
         migrations.AlterField(
@@ -18,16 +16,24 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='simulation',
             name='end_time',
-            field=models.DateTimeField(blank=True, default=None, null=True, verbose_name='time ended'),
+            field=models.DateTimeField(blank=True,
+                                       default=None,
+                                       null=True,
+                                       verbose_name='time ended'),
         ),
         migrations.AlterField(
             model_name='simulation',
             name='port',
-            field=models.PositiveIntegerField(blank=True, default=None, null=True),
+            field=models.PositiveIntegerField(blank=True,
+                                              default=None,
+                                              null=True),
         ),
         migrations.AlterField(
             model_name='simulation',
             name='start_time',
-            field=models.DateTimeField(blank=True, default=None, null=True, verbose_name='time started'),
+            field=models.DateTimeField(blank=True,
+                                       default=None,
+                                       null=True,
+                                       verbose_name='time started'),
         ),
     ]
