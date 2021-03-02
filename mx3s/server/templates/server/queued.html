@@ -3,14 +3,15 @@
   Queued
 </button>
 <div class="collapse show" id="collapseQueued">
-  <table class="table table-dark">
+  <table class="table table-dark table-sm">
     <thead>
       <tr>
-        <th scope="col">#</th>
+        <th scope="col">Unique ID</th>
         <th scope="col">Name</th>
-        <th scope="col">Name2</th>
-        <th scope="col">Remove</th>
-        <th scope="col"></th>
+        <th scope="col">Filename</th>
+        <th scope="col">User</th>
+        <th scope="col" style="width:  10%">Priority</th>
+        <th scope="col" style="width:  5%"></th>
       </tr>
     </thead>
     <tbody>
@@ -19,16 +20,17 @@
         <th scope="row">{{sim.pk}}</th>
         <td>{{sim.name}}</td>
         <td>{{sim.script}}</td>
+        <td>{{sim.user}}</td>
+        <td>
+          <button type="button" class="btn btn-outline-primary btn-sm">
+            Bring to top
+          </button>
+        </td>
         <td>
           <form action="{% url 'server:delete-sim' pk=sim.pk %}" method="POST">
             {% csrf_token %}
-            <input class="btn btn-default btn-danger" type="submit" value="Delete" />
+            <input class="btn btn-default btn-danger btn-sm" type="submit" value="Delete" />
           </form>
-        </td>
-        <td>
-          <button type="button" class="btn btn-outline-primary">
-            Top Priority
-          </button>
         </td>
       </tr>
       {% endfor %}
