@@ -19,6 +19,7 @@
         <th scope="col">Path</th>
         <th scope="col">Time Started</th>
         <th scope="col">Duration</th>
+        <th scope="col">Stop</th>
         <th scope="col">Remove</th>
       </tr>
     </thead>
@@ -39,6 +40,9 @@
         <td>{{sim.path}}</td>
         <td>{{sim.start_time}}</td>
         <td>0</td>
+        <td>
+          <button type="button" class="btn btn-outline-warning">Stop</button>
+        </td>
         <td>
           <button type="button" class="btn btn-outline-danger">Remove</button>
         </td>
