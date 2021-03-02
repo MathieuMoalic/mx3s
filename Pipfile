@@ -5,7 +5,10 @@ name = "pypi"
 PIPENV_VENV_IN_PROJECT = 1
 
 [packages]
-django = "*"
+Django = "*"
+uvicorn = "*"
+gunicorn = "*"
+uvloop = "*"
 
 [dev-packages]
 yapf = "*"
