@@ -12,19 +12,23 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import sys
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+sys.path.append(str(BASE_DIR.parent))
+import env_var
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "8y^b8_f1q6pzq!+=hbif7m!2i_boq96j@#_k@2ph074v$fc1cg"
+SECRET_KEY = env_var.DJANGO_SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env_var.DEBUG
 
 ALLOWED_HOSTS = []
 
@@ -32,7 +36,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "crispy_forms",
     "server.apps.ServerConfig",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -125,8 +128,6 @@ STATIC_URL = "/static/"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-
-CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 from django.contrib.messages import constants as messages
 
