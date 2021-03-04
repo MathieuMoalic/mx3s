@@ -1,15 +1,12 @@
 from pyftpdlib.authorizers import DummyAuthorizer
 from pyftpdlib.handlers import FTPHandler
 from pyftpdlib.servers import FTPServer
-import env_var
 
 authorizer = DummyAuthorizer()
-authorizer.add_user(*env_var.FTP_SERVER_USER_CREDENTIALS,
-                    env_var.FTP_HOME_DIR,
-                    perm='elradfmwMT')
+authorizer.add_user("mat", "123", "simulations/")
 
 handler = FTPHandler
 handler.authorizer = authorizer
 
-server = FTPServer(('127.0.0.1', env_var.FTP_SERVER_PORT), handler)
+server = FTPServer(('127.0.0.1', 21211), handler)
 server.serve_forever()

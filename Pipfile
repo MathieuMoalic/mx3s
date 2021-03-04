@@ -9,6 +9,9 @@ Django = "*"
 uvicorn = "*"
 gunicorn = "*"
 uvloop = "*"
+flake8 = "*"
+django-q = "*"
+redis = "*"
 
 [dev-packages]
 yapf = "*"

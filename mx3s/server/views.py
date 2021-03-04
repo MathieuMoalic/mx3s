@@ -2,10 +2,10 @@ from django.shortcuts import redirect, get_object_or_404
 from django.views import generic
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
-# import pdb
 
 from .models import Simulation
 from .forms import ScriptUploadForm
+from .tasks import queue_mumax
 
 
 class IndexView(generic.ListView):
@@ -24,9 +24,12 @@ class IndexView(generic.ListView):
         form = ScriptUploadForm(request.POST, request.FILES)
 
         if form.is_valid():
-            # pdb.set_trace()
+            queue_mumax(form)
             form.save()
+            # import pdb
+            # pdb.set_trace()
             messages.success(request, 'success', extra_tags='alert')
+
         else:
             messages.error(request,
                            "This file couldn't be uploaded",
@@ -41,8 +44,7 @@ class DeleteView(SuccessMessageMixin, generic.DeleteView):
 
     def delete(self, request, *args, **kwargs):
         name = self.get_object().name
-        request.session[
-            'name'] = name  # name will be change according to your need
+        request.session['name'] = name
         message = request.session['name'] + ' deleted successfully'
         messages.success(self.request, message)
         return super(DeleteView, self).delete(request, *args, **kwargs)
