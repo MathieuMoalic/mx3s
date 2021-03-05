@@ -1,49 +1,66 @@
-# scan a script folder periodically
-# start a simulation when a script arrives
-# scan folder periodically and send the files to the server
-# tell the server when the simulation ends
-# repeat
-
 import os
-from time import sleep
 import subprocess
-import shutil
-from ftpretty import ftpretty
+import multiprocessing
+import glob
+import time
+import sys
 
-folder = ""
-# folder = "/tmp/g/Mathieu/simulations/test_files"
+import ftpretty
 
-sim_blacklist = []
-f = ftpretty('127.0.0.1', "mat", "123", port=21211)
+
+def ftp_put(mumax_subprocesses):
+    _, ip, port, username, password = sys.argv
+    f = ftpretty.ftpretty(ip, username, password, port=port)
+    while True:
+        for i, mumax_subprocess in enumerate(mumax_subprocesses):
+            mumax_subprocess.poll()
+            if mumax_subprocess.returncode is not None:
+                finished_sim = mumax_subprocess.args[1]
+                print(f"Simulation :{finished_sim} has finished")
+                finished_sim_folder = f"{finished_sim[:-3]}out"
+                print(f"Cleaning the folder :{finished_sim_folder}")
+                meta_files = glob.glob(f"{finished_sim_folder}/*")
+                for meta_file in meta_files:
+                    f.put(meta_file, meta_file)
+                    os.remove(meta_file)
+                    print(f"Moved :{meta_file}")
+                mumax_subprocesses.pop(i)
+                os.rmdir(finished_sim_folder)
+            break
+
+        send_queue = glob.glob("**/*.ovf")
+        for ovf_file in send_queue:
+            f.put(ovf_file, ovf_file)
+            os.remove(ovf_file)
+            print(f"Moved {ovf_file}")
+        time.sleep(0.5)
 
 
 def main():
-    # os.chdir(folder)
-    while True:
-        scipts = os.listdir()
-        print(os.listdir())
-        for script in scipts:
-            if script[-3:] == "mx3" and script not in sim_blacklist:
-                sim_folder = script[:-3] + "out"
-                s = subprocess.Popen(["mumax3", script])
-                sim_blacklist.append(script)
-                sleep(1)
-                while True:
-                    sim_files = os.listdir(sim_folder)
-                    for sim_file in sim_files:
-                        if "ovf" in sim_file:
-                            # Put a local file into a remote directory, denoted by trailing slash on remote
-                            f.put(sim_file, 'simualtions/')
-                            os.remove(f"{sim_folder}/{sim_file}")
-                            print(f"{script}: removed {sim_file}")
-                    s.poll()
-                    # print(f"{s.returncode=}")
-                    if s.returncode is not None:  # if sim is finished
-                        print(f"Simulation :{script} has finished")
-                        shutil.rmtree(sim_folder)
-                        break
-                    sleep(1)
-        sleep(2)
+    try:
+        simulations_started = []
+        mumax_subprocesses = []
+        ftp_put_process = multiprocessing.Process(target=ftp_put,
+                                                  args=[mumax_subprocesses])
+        ftp_put_process.start()
+        while True:
+            scipts = glob.glob("*.mx3")
+            for script in scipts:
+                if script not in simulations_started:
+                    print(f"Starting {script}")
+                    s = subprocess.Popen(["mumax3", script],
+                                         stdout=subprocess.DEVNULL)
+                    mumax_subprocesses.append(s)
+                    simulations_started.append(script)
+            time.sleep(2)
+    except KeyboardInterrupt:
+        print("Exiting ...")
+        for s in mumax_subprocesses:
+            s.kill()
+        print("Mumax simulations stopped.")
+        ftp_put_process.terminate()
+        print("FTP connection closed.")
+        sys.exit(0)
 
 
 if __name__ == "__main__":

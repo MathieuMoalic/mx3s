@@ -12,6 +12,7 @@ uvloop = "*"
 flake8 = "*"
 django-q = "*"
 redis = "*"
+paramiko = "*"
 
 [dev-packages]
 yapf = "*"
