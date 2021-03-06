@@ -5,7 +5,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 
 from .models import Simulation
 from .forms import ScriptUploadForm
-from .tasks import queue_mumax
+# from .tasks import queue_mumax
 
 
 class IndexView(generic.ListView):
@@ -24,7 +24,7 @@ class IndexView(generic.ListView):
         form = ScriptUploadForm(request.POST, request.FILES)
 
         if form.is_valid():
-            queue_mumax(form)
+            # queue_mumax(form)
             form.save()
             # import pdb
             # pdb.set_trace()

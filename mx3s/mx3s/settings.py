@@ -31,7 +31,7 @@ ALLOWED_HOSTS = ["*", "127.0.0.1"]
 # Application definition
 
 INSTALLED_APPS = [
-    'django_q',
+    # 'django_q',
     'server.apps.ServerConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -147,18 +147,18 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
 }
 
-Q_CLUSTER = {
-    'name': 'mx3s',
-    'workers': 8,
-    'recycle': 500,
-    'timeout': 60,
-    'save_limit': 250,
-    'queue_limit': 500,
-    'cpu_affinity': 1,
-    'label': 'Django Q',
-    'redis': {
-        'host': '127.0.0.1',
-        'port': 6379,
-        'db': 0,
-    }
-}
+# Q_CLUSTER = {
+#     'name': 'mx3s',
+#     'workers': 8,
+#     'recycle': 500,
+#     'timeout': 60,
+#     'save_limit': 250,
+#     'queue_limit': 500,
+#     'cpu_affinity': 1,
+#     'label': 'Django Q',
+#     'redis': {
+#         'host': '127.0.0.1',
+#         'port': 6379,
+#         'db': 0,
+#     }
+# }

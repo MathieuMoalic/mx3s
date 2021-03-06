@@ -2,7 +2,7 @@ import os
 from django.db import models
 from django.dispatch import receiver
 from django.core.validators import ValidationError
-from django_q import models as qmodels
+# from django_q import models as qmodels
 
 
 def file_upload_validator(filename):
