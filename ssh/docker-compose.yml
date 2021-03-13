@@ -1,0 +1,20 @@
+version: "3.7"
+
+services:
+  openssh-server:
+    image: ghcr.io/linuxserver/openssh-server
+    container_name: openssh-server
+    hostname: openssh-server #optional
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Amsterdam
+      - PUBLIC_KEY_FILE=/config/rsa.pub.key #optional
+      - SUDO_ACCESS=false #optional
+      - USER_NAME=mat #optional
+    volumes:
+      - ../docker/ssh:/config
+      - /mnt/g/Mathieu/simulations/jimmy:/jimmy
+    ports:
+      - 2222:2222
+    restart: unless-stopped

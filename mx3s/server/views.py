@@ -13,7 +13,7 @@ class IndexView(generic.ListView):
     context_object_name = 'sims'
 
     def get_queryset(self):
-
+        print("view loaded")
         return {
             'queued': Simulation.objects.filter(is_queued=True),
             'running': Simulation.objects.filter(is_running=True),

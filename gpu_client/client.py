@@ -7,17 +7,18 @@ import sys
 
 import ftpretty
 
-ip = '127.0.0.1'
-username = 'mat'
-password = '123'
-port = 44090
+server_ip = '150.254.111.83'
+ftp_username = 'client'
+ftp_password = '247uT8xdA5uYpq'
+ftp_port = 38388
 gpus = 2
 mumax_ports = [35367, 35368]
+home_dir = "/mnt/g/Mathieu/simulations/jimmy/client"
 
 
 def ftp_put(mumax_subprocesses):
     # _, ip, port, username, password = sys.argv
-    f = ftpretty.ftpretty(ip, username, password, port=port)
+    f = ftpretty.ftpretty(server_ip, ftp_username, ftp_password, port=ftp_port)
     while True:
         for i, mumax_subprocess in enumerate(mumax_subprocesses):
             mumax_subprocess.poll()
@@ -35,7 +36,7 @@ def ftp_put(mumax_subprocesses):
                 os.rmdir(finished_sim_folder)
             break
 
-        send_queue = glob.glob("**/*.ovf")
+        send_queue = glob.glob(f"{home_dir}**/*.ovf")
         for ovf_file in send_queue:
             f.put(ovf_file, ovf_file)
             os.remove(ovf_file)
@@ -55,8 +56,11 @@ def main():
         ftp_put_process = multiprocessing.Process(target=ftp_put,
                                                   args=[mumax_subprocesses])
         ftp_put_process.start()
+
+        ssh_tunneling_process = multiprocessing.Process(target=ssh_tunneling)
+        ssh_tunneling_process.start()
         while True:
-            scipts = glob.glob("*.mx3")
+            scipts = glob.glob(f"{home_dir}queued_scripts/*.mx3")
             if any(free_gpu):
                 for script in scipts:
                     if script not in simulations_started:
@@ -77,6 +81,8 @@ def main():
         print("Mumax simulations stopped.")
         ftp_put_process.terminate()
         print("FTP connection closed.")
+        ssh_tunneling_process.terminate()
+        print("SSH connection closed.")
         sys.exit(0)
 
 

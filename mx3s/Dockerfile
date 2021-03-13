@@ -2,7 +2,7 @@
 FROM python:3.9.2-alpine
 
 # set work directory
-WORKDIR /usr/src/app
+WORKDIR /usr/src/jimmy/django
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -24,4 +24,4 @@ COPY ./entrypoint.sh .
 COPY . .
 
 # run entrypoint.sh
-ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
+ENTRYPOINT ["/usr/src/jimmy/django/entrypoint.sh"]

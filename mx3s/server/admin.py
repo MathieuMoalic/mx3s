@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Server, Simulation, Gpu
+from .models import Simulation, Gpu
 
 
 class SimulationAdmin(admin.ModelAdmin):

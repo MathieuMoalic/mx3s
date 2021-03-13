@@ -31,8 +31,9 @@ ALLOWED_HOSTS = ["*", "127.0.0.1"]
 # Application definition
 
 INSTALLED_APPS = [
-    # 'django_q',
+    'users.apps.UsersConfig',
     'server.apps.ServerConfig',
+    'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -73,12 +74,6 @@ WSGI_APPLICATION = 'mx3s.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3'
-#     }
-# }
 DATABASES = {
     "default": {
         "ENGINE":
@@ -137,7 +132,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = "/jimmy"
 
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-info',
@@ -146,19 +141,7 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-# Q_CLUSTER = {
-#     'name': 'mx3s',
-#     'workers': 8,
-#     'recycle': 500,
-#     'timeout': 60,
-#     'save_limit': 250,
-#     'queue_limit': 500,
-#     'cpu_affinity': 1,
-#     'label': 'Django Q',
-#     'redis': {
-#         'host': '127.0.0.1',
-#         'port': 6379,
-#         'db': 0,
-#     }
-# }
+LOGIN_REDIRECT_URL = 'server:index'
+LOGIN_URL = 'login'

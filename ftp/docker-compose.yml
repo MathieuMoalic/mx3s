@@ -1,0 +1,11 @@
+version: "3.7"
+
+services:
+  ftp:
+    container_name: ftp_server
+    build: .
+    command: python ftp_server.py
+    volumes:
+      - ../docker:/docker
+    ports:
+      - 21211:21211

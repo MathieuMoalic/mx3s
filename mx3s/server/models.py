@@ -2,8 +2,7 @@ import os
 from django.db import models
 from django.dispatch import receiver
 from django.core.validators import ValidationError
-# from django_q import models as qmodels
-
+from django.contrib.auth.models import User
 
 def file_upload_validator(filename):
     extension = filename.name.split(".")[-1].lower()
@@ -14,17 +13,8 @@ def file_upload_validator(filename):
 def rename_script(instance, filename):  # pylint: disable=unused-argument
     # can do f"{user}/name.mx3 later !
     name = filename.split('/')[-1]
-    path = f'{name}'
+    path = f'queued/{name}'
     return path
-
-
-class Server(models.Model):
-    ip = models.GenericIPAddressField(default='127.0.0.1')
-
-
-class User(models.Model):
-    pass
-
 
 class Simulation(models.Model):
     start_time = models.DateTimeField('Time Started',

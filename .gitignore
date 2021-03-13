@@ -135,3 +135,5 @@ dmypy.json
 dump.rdb
 ftp/simulations/
 **/*key*
+docker
+*/id_rsa
