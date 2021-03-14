@@ -11,7 +11,7 @@ services:
     ports:
       - 8000:8000
     env_file:
-      - ./.env
+      - ./.env.docker
     depends_on:
       - db
   db:
@@ -32,7 +32,7 @@ services:
   #   ports:
   #     - 21211:21211
   #   env_file:
-  #     - ./.env
+  #     - ./.env.docker
   openssh-server:
     image: ghcr.io/linuxserver/openssh-server
     container_name: openssh-server

@@ -6,7 +6,8 @@ from . import views
 
 app_name = 'server'
 urlpatterns = [
-    path('', login_required(views.IndexView.as_view()), name='index'),
+    # path('', login_required(views.IndexView.as_view()), name='index'),
+    path('', views.IndexView.as_view(), name='index'),
     path('<int:sim_id>/', views.redirect_sim, name='redirect-sim'),
     path('delete/<int:pk>', views.DeleteView.as_view(), name='delete-sim'),
 ]

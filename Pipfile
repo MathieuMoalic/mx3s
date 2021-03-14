@@ -3,6 +3,7 @@ url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
 PIPENV_VENV_IN_PROJECT = 1
+PIPENV_DOTENV_LOCATION = "~/"
 
 [packages]
 Django = "*"
@@ -17,6 +18,8 @@ sshtunnel = "*"
 ipython = "*"
 django-basic-auth-ip-whitelist = "*"
 django-crispy-forms = "*"
+django-ip-restriction = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 yapf = "*"

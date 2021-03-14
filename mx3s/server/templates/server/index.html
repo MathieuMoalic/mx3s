@@ -1,13 +1,76 @@
 {% extends "server/base.html" %} {% block content %}
-
+{% load static %}
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand" href="#">
+    <img
+        src="{% static 'server/images/favicon-32x32.png' %}"
+        width="32"
+        height="32"
+        class="d-inline-block align-top"
+        alt=""
+    />
+    Mumax3 Server
+    </a>
+    {% if user.is_authenticated %}
+    <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+    {% endif %}
 <form method="post" enctype="multipart/form-data" action="{% url 'server:index' %}">
     {% csrf_token %}
     <input type="file" name="script">
     <button type=" submit" class="btn btn-outline-primary">Upload mx3</button>
 </form>
+ {% for message in messages %}
+<div class="alert {{ message.tags }} alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    {{ message }}
+</div>
+{% endfor %}
+</header>
 
-<div>{% include 'server/queued.html' %}</div>
-<div>{% include 'server/running.html' %}</div>
-<div>{% include 'server/finished.html' %}</div>
+<div class="container-fluid">
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
+      <div class="position-sticky pt-3">
+        <h3 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>Users</span>
+        </h3>
+        <ul class="nav flex-column mb-2">
+        {% for user in context.users %}
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="file-text"></span>
+                {{user}}
+              {% comment %} Current month {% endcomment %}
+            </a>
+          </li>
+        {% endfor %}
+        </ul>
+      </div>
+    </nav>
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Dashboard</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group me-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <span data-feather="calendar"></span>
+            This week
+          </button>
+        </div>
+      </div>
+    <div>{% include 'server/queued.html' %}</div>
+    {% comment %}
+    <div>{% include 'server/running.html' %}</div>
+    <div>{% include 'server/finished.html' %}</div> 
+    {% endcomment %}
+    </main>
+  </div>
+</div>
 
 {% endblock content%}

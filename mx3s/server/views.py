@@ -5,19 +5,20 @@ from django.contrib.messages.views import SuccessMessageMixin
 
 from .models import Simulation
 from .forms import ScriptUploadForm
-# from .tasks import queue_mumax
+from django.contrib.auth.models import User
 
 
 class IndexView(generic.ListView):
     template_name = 'server/index.html'
-    context_object_name = 'sims'
+    context_object_name = 'context'
 
     def get_queryset(self):
-        print("view loaded")
+        print(User.objects.all())
         return {
             'queued': Simulation.objects.filter(is_queued=True),
             'running': Simulation.objects.filter(is_running=True),
             'finished': Simulation.objects.filter(is_finished=True),
+            'users': User.objects.all(),
         }
 
     def post(self, request):
