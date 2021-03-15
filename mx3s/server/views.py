@@ -1,19 +1,17 @@
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404, render
 from django.views import generic
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 
 from .models import Simulation
-from .forms import ScriptUploadForm
+from .forms import ScriptUploadForm,FileFieldForm
 from django.contrib.auth.models import User
-
 
 class IndexView(generic.ListView):
     template_name = 'server/index.html'
     context_object_name = 'context'
 
     def get_queryset(self):
-        print(User.objects.all())
         return {
             'queued': Simulation.objects.filter(is_queued=True),
             'running': Simulation.objects.filter(is_running=True),
@@ -25,7 +23,10 @@ class IndexView(generic.ListView):
         form = ScriptUploadForm(request.POST, request.FILES)
 
         if form.is_valid():
-            # queue_mumax(form)
+            files = request.FILES.getlist('script')
+            for f in files:
+                print(f)
+
             form.save()
             # import pdb
             # pdb.set_trace()
@@ -36,7 +37,6 @@ class IndexView(generic.ListView):
                            "This file couldn't be uploaded",
                            extra_tags='alert')
         return redirect(request.META['HTTP_REFERER'])
-
 
 class DeleteView(SuccessMessageMixin, generic.DeleteView):
     model = Simulation

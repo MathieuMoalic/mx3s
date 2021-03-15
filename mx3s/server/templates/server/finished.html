@@ -28,7 +28,14 @@
         <td>{{sim.path}}</td>
         <td>0</td>
         <td>
-          <button type="button" class="btn btn-outline-danger">Delete</button>
+          <form action="{% url 'server:delete-sim' pk=sim.pk %}" method="POST">
+            {% csrf_token %}
+            <input
+              class="btn btn-default btn-danger btn-sm"
+              type="submit"
+              value="Delete"
+            />
+          </form>
         </td>
       </tr>
       {% endfor %}

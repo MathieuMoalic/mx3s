@@ -44,7 +44,14 @@
           <button type="button" class="btn btn-outline-warning">Stop</button>
         </td>
         <td>
-          <button type="button" class="btn btn-outline-danger">Remove</button>
+          <form action="{% url 'server:delete-sim' pk=sim.pk %}" method="POST">
+            {% csrf_token %}
+            <input
+              class="btn btn-default btn-danger btn-sm"
+              type="submit"
+              value="Delete"
+            />
+          </form>
         </td>
       </tr>
       {% endfor %}

@@ -7,4 +7,3 @@ class ServerConfig(AppConfig):
     def ready(self):
         from .handler import handler
         handler()
-        print("Okay")
